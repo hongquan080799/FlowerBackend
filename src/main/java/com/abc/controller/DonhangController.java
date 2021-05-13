@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.abc.entity.CTDH;
@@ -104,7 +105,7 @@ public class DonhangController {
 	}
 	
 	@PostMapping("/donhang/{makh}")
-	public ResponseEntity<String> insertDonhang(@Validated @RequestBody List<Dathang> listDH,@PathVariable("makh") String makh) {
+	public ResponseEntity<String> insertDonhang(@Validated @RequestBody List<Dathang> listDH,@PathVariable("makh") String makh,@RequestParam("thanhtoan") int thanhtoan) {
 		try {
 			Donhang donhang = new Donhang();
 			String madh = "DH" +  System.currentTimeMillis() % 100000000;
@@ -117,7 +118,7 @@ public class DonhangController {
 			//Timestamp tm = new Timestamp(System.currentTimeMillis());
 			
 			//donhang.setNgaydat(tm);
-			donhang.setHinhthucthanhtoan(1);
+			donhang.setHinhthucthanhtoan(thanhtoan);
 			donhang.setTrangthai(0);
 			Khachhang khachhang = new Khachhang();
 			khachhang.setMakh(makh);

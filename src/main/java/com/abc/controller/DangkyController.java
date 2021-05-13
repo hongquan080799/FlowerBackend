@@ -3,6 +3,7 @@ package com.abc.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,9 @@ import com.abc.repository.TaikhoanRepository;
 @CrossOrigin
 public class DangkyController {
 
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	@Autowired 
 	KhachhangRepository khachHangRepo;
 	
@@ -53,7 +57,7 @@ public class DangkyController {
 			
 			
 			tk.setUsername(dangky.getUsername());
-			tk.setPassword(dangky.getPassword());
+			tk.setPassword(passwordEncoder.encode(dangky.getPassword()));
 			tk.setQuyen(new Quyen(2));
 			kh.setTaikhoan(tk);
 			

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,6 +36,9 @@ public class NhanvienController {
 	
 	@Autowired
 	TaikhoanRepository taiKhoanRepo;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@GetMapping("/nhanvien")
 	public List<Nhanvien> getListNV(){
@@ -83,7 +87,7 @@ public class NhanvienController {
 			
 			
 			tk.setUsername(dangky.getUsername());
-			tk.setPassword(dangky.getPassword());
+			tk.setPassword(passwordEncoder.encode(dangky.getPassword()));
 			tk.setQuyen(new Quyen(3));
 			kh.setTaikhoan(tk);
 			
