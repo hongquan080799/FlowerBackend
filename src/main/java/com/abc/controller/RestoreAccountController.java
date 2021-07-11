@@ -55,4 +55,21 @@ public class RestoreAccountController {
 		return new ResponseEntity<Boolean>(false,HttpStatus.BAD_REQUEST);
 		
 	}
+	@PutMapping("/taikhoan")
+	public ResponseEntity<Boolean> updateTaikhoan(@Validated @RequestBody RestoreUser resUser){
+		System.out.println(resUser.getUsername());
+		Taikhoan tk = tkRepo.findByUsername(resUser.getUsername());
+		tk.setPassword(passwordEncoder.encode(resUser.getPassword()	));
+		
+		try {
+			tkRepo.save(tk);
+			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			
+		}
+		return new ResponseEntity<Boolean>(false,HttpStatus.BAD_REQUEST);
+		
+	}
 }

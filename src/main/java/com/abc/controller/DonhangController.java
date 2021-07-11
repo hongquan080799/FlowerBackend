@@ -149,7 +149,7 @@ public class DonhangController {
 				for(Dathang dh : listDH) {
 					ghRepo.deleteGiohangByMakhAndMasp(makh, dh.getMasp());
 				}
-				return new ResponseEntity<String>("Successed !!!",HttpStatus.OK);
+				return new ResponseEntity<String>(madh,HttpStatus.OK);
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();

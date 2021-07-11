@@ -45,23 +45,8 @@ public class KhachhangController {
 	}
 	
 	@PutMapping("/khachhang")
-	public ResponseEntity<Boolean> updateKhachhang(@Validated @RequestBody Dangky dk){
-		Khachhang kh = repo.getKhachHangByUsername(dk.getUsername());
-		Taikhoan tk = tkRepo.findByUsername(dk.getUsername());
-		
-		tk.setUsername(dk.getUsername());
-		tk.setPassword(passwordEncoder.encode(dk.getPassword()	));
-		
-		kh.setHo(dk.getHo());
-		kh.setTen(dk.getTen());
-		kh.setGioitinh(dk.getGioitinh());
-		kh.setDiachi(dk.getDiachi());
-		kh.setEmail(kh.getEmail());
-		kh.setSdt(dk.getSdt());
-		kh.setTaikhoan(tk);
-		
+	public ResponseEntity<Boolean> updateKhachhang(@Validated @RequestBody Khachhang kh){
 		try {
-			tkRepo.save(tk);
 			repo.save(kh);
 			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 		} catch (Exception e) {

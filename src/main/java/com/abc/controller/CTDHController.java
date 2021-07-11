@@ -1,5 +1,6 @@
 package com.abc.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.abc.dao.DAO;
 import com.abc.entity.CTDH;
 import com.abc.entity.CTDH_ID;
 import com.abc.entity.Donhang;
 import com.abc.entity.Sanpham;
+import com.abc.model.Thongke;
 import com.abc.repository.CTDHRepository;
 import com.abc.repository.DonhangRepositoty;
 
@@ -58,5 +61,16 @@ public class CTDHController {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<String>("failed !!!" , HttpStatus.BAD_REQUEST);
+	}
+	@GetMapping("/thongke")
+	public List<Thongke> getListTK(){
+		List<Thongke> list = new ArrayList<Thongke>();
+		try {
+			list = new DAO().getListTK();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
 	}
 }
